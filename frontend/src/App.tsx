@@ -85,9 +85,9 @@ function App() {
 
   return (
     <div className="flex justify-center w-screen h-screen">
-      <div className="flex flex-col max-w-screen-sm w-full h-full bg-neutral-100">
+      <div className="flex flex-col max-w-screen-sm w-full h-full bg-neutral-50">
         {/* Header */}
-        <div className="p-4 font-bold text-xl bg-neutral-200">
+        <div className="p-4 font-bold text-xl bg-neutral-200 flex justify-center">
           Simple Chat Example
         </div>
 
@@ -110,14 +110,14 @@ function App() {
           <input
             ref={inputRef}
             type="text"
-            className="flex-1 p-2 border rounded mr-2"
+            className="flex-1 p-3 rounded-lg mr-2"
             placeholder="메시지를 입력하세요..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleKeyPress}
           />
           <button
-            className="p-2 bg-blue-500 text-white rounded"
+            className="p-3 bg-neutral-900 text-white rounded-lg"
             onClick={sendMessage}
           >
             전송
