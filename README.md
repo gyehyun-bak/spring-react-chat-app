@@ -23,6 +23,20 @@ SpringBoot 백엔드 서버와 React(TypeScript) 클라이언트로 SockJS와 ST
 - Lombok
 - Spring Boot DevTools
 
+## 실행 방법
+### 프론트엔드
+`frontend` 디렉토리에서 아래 명령어를 통해 vite 프로젝트를 IDE에서 실행합니다.
+```bash
+npm i
+npm run dev
+```
+
+### 백엔드
+IntelliJ와 같은 적당한 스프링 IDE를 통해 `SpringWebsocketApplication.java`을 실행합니다. 기본적으로 `http://localhost:8080/`을 베이스 서버 URL로 연결하도록 클라이언트측에 구현되어있습니다. 
+
+### 연동
+브라우저 콘솔에 기록되는 로그를 통해 STOMP의 연결과 메시지를 확인할 수 있습니다.
+
 ## 프로젝트 흐름도
 ![image](https://github.com/user-attachments/assets/d8f2a18f-209f-4bdc-a40a-5cfc25ff8c6f)
 
