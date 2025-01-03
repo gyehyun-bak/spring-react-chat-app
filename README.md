@@ -14,6 +14,10 @@ SpringBoot 백엔드 서버와 React(TypeScript) 클라이언트로 SockJS와 ST
 
 (구체적인 구조와 구현 방법 전체에 대한 설명을 추가할 예정입니다.)
 
+## 기능
+- 접속 시 채팅 메시지를 실시간으로 주고 받을 수 있습니다.
+(해당 기능 위에 보편적인 추가 기능을 구현할 예정입니다)
+
 ## 개발 환경 및 의존성
 ### 프론트엔드
 - React 18.3.1
@@ -32,14 +36,17 @@ SpringBoot 백엔드 서버와 React(TypeScript) 클라이언트로 SockJS와 ST
 
 ## 실행 방법
 ### 프론트엔드
-`frontend` 디렉토리에서 아래 명령어를 통해 vite 프로젝트를 IDE에서 실행합니다.
+`client` 디렉토리에서 아래 명령어를 통해 vite 프로젝트를 IDE에서 실행합니다.
+
 ```bash
 npm i
 npm run dev
 ```
 
 ### 백엔드
-IntelliJ와 같은 적당한 스프링 IDE를 통해 `SpringWebsocketApplication.java`을 실행합니다. 기본적으로 `http://localhost:8080/`을 베이스 서버 URL로 연결하도록 클라이언트측에 구현되어있습니다. 
+IntelliJ와 같은 적당한 스프링 IDE를 통해 `server` 프로젝트를 엽니다.
+
+기본적으로 `http://localhost:8080/`을 베이스 서버 URL로 연결하도록 클라이언트측에 구현되어있습니다. 
 
 ### 연동
 브라우저 콘솔에 기록되는 로그를 통해 STOMP의 연결과 메시지를 확인할 수 있습니다.
