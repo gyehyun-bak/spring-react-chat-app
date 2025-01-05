@@ -11,4 +11,5 @@ import lombok.Setter;
 @Setter
 public class MessageResponseDto {
     private String content;
+    private String sessionId;
 }
