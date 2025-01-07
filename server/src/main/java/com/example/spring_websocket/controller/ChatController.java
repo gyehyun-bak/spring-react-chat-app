@@ -17,6 +17,6 @@ public class ChatController {
     @MessageMapping("/chat")
     @SendTo("/topic/chat")
     public MessageResponseDto sendChatMessage(MessageRequestDto requestDto, SimpMessageHeaderAccessor accessor) {
-        return chatService.processMessage(requestDto, accessor.getSessionId());
+        return chatService.processMessage(requestDto, accessor.getSessionId(), (String) accessor.getSessionAttributes().get("nickname"));
     }
 }

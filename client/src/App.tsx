@@ -10,23 +10,34 @@ interface MessageRequestDto {
 interface MessageResponseDto {
   content: string;
   sessionId: string;
+  nickname: string;
 }
 
 // 서버 웹소켓 엔드포인트트
 const SOCKET_URL = "http://localhost:8080/ws";
 
+// 닉네임 최대 길이
+const MAX_NICKNAME_LENGTH = 30;
+
 function App() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<MessageResponseDto[]>([]);
+  const [isNicknameEntered, setIsNicknameEntered] = useState(false); // 웹소켓 연결 여부
+  const [nickname, setNickname] = useState(""); // 웹사이트 접속시 입력받을 세션 닉네임
   const [sessionId, setSessionId] = useState(""); // 유저가 보낸 메시지 식별용 Session Id
   const stompClientRef = useRef<Client | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
+    if (!isNicknameEntered) return;
+
     const socket = new SockJS(SOCKET_URL);
     const stompClient = new Client({
       webSocketFactory: () => socket as any,
       debug: (msg: string) => console.log("[STOMP]:", msg),
+      connectHeaders: {
+        nickname: nickname,
+      },
       onConnect: () => {
         // 세션 아이디 추출
         const sessionId = (socket as any)._transport.url
@@ -62,7 +73,7 @@ function App() {
     return () => {
       stompClient.deactivate();
     };
-  }, []);
+  }, [isNicknameEntered]);
 
   const sendMessage = () => {
     if (
@@ -91,6 +102,43 @@ function App() {
     }
   };
 
+  const enterNickname = () => {
+    if (!nickname.trim()) {
+      setNickname("익명");
+    }
+
+    setIsNicknameEntered(true);
+  };
+
+  if (!isNicknameEntered) {
+    return (
+      <div className="flex justify-center w-screen h-screen">
+        <div className="flex flex-col max-w-screen-sm w-full h-full bg-neutral-50 justify-center px-20 gap-5">
+          <h1 className="text-2xl font-bold">닉네임을 입력해주세요😀</h1>
+          <input
+            type="text"
+            placeholder="익명"
+            value={nickname}
+            maxLength={MAX_NICKNAME_LENGTH}
+            onChange={(e) => {
+              setNickname(e.target.value);
+            }}
+            className="p-4 rounded-xl shadow-xl"
+          />
+          <div className="text-sm text-gray-400 flex justify-end">
+            {nickname.length} / {MAX_NICKNAME_LENGTH}
+          </div>
+          <button
+            onClick={enterNickname}
+            className="bg-blue-600 text-white p-2 rounded-xl shadow-xl"
+          >
+            입장
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex justify-center w-screen h-screen">
       <div className="flex flex-col max-w-screen-sm w-full h-full bg-neutral-50">
@@ -98,15 +146,18 @@ function App() {
         <div className="flex-1 overflow-auto p-4">
           <div className="flex flex-col gap-1">
             {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`px-4 py-3 my-1 rounded-xl w-fit shadow-md ${
-                  message.sessionId === sessionId
-                    ? "bg-blue-600 text-white self-end" // 자신의 메시지
-                    : "bg-white self-start" // 다른 사람의 메시지
-                }`}
-              >
-                {message.content}
+              <div className={`flex flex-col gap-1 ${message.sessionId === sessionId ? "items-end" : "items-start"}`}>
+                <span className="text-sm text-neutral-400">{message.nickname}</span>
+                <div
+                  key={index}
+                  className={`px-4 py-3 my-1 rounded-xl w-fit shadow-md ${
+                    message.sessionId === sessionId
+                      ? "bg-blue-600 text-white self-end" // 자신의 메시지
+                      : "bg-white self-start" // 다른 사람의 메시지
+                  }`}
+                >
+                  {message.content}
+                </div>
               </div>
             ))}
           </div>

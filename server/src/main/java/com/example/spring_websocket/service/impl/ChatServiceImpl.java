@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ChatServiceImpl implements ChatService {
-    public MessageResponseDto processMessage(MessageRequestDto requestDto, String sessionId) {
-        return new MessageResponseDto(requestDto.getContent(), sessionId);
+    public MessageResponseDto processMessage(MessageRequestDto requestDto, String sessionId, String nickname) {
+        return new MessageResponseDto(requestDto.getContent(), sessionId, nickname);
     }
 }
