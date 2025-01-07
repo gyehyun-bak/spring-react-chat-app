@@ -17,6 +17,7 @@ SpringBoot 백엔드 서버와 React(TypeScript) 클라이언트로 SockJS와 ST
 ## 🚩 기능
 - 접속 시 채팅 메시지를 실시간으로 주고 받을 수 있습니다.
 - 자신이 보낸 메시지는 오른쪽에 파란색으로 표시됩니다.
+- 접속 시 닉네임을 입력받으며, 각 메시지 상단에 닉네임이 표시됩니다.
 
 ## 📝 개발 노트
 개발 과정을 블로그로 기록 중입니다. 각 기능의 상세 구현에 대해 정보를 얻으실 수 있습니다.
@@ -57,11 +58,11 @@ IntelliJ와 같은 적당한 스프링 IDE를 통해 `server` 프로젝트를 �
 기본적으로 `http://localhost:8080/`을 베이스 서버 URL로 연결하도록 클라이언트측에 구현되어있습니다. 
 
 ## Class 다이어그램
-![image](https://github.com/user-attachments/assets/f30e868c-4d03-4291-a149-59741fde0b4c)
+![image](https://github.com/user-attachments/assets/1ca895c3-af8e-4bf2-9357-1848f9bcc423)
 
 ## 프로젝트 흐름도
-![image](https://github.com/user-attachments/assets/d8f2a18f-209f-4bdc-a40a-5cfc25ff8c6f)
+![image](https://github.com/user-attachments/assets/85c54449-c8c3-4fd9-8ab1-b3eec1e487a2)
 
 ## 실행 화면
-![image](https://github.com/user-attachments/assets/d5dec5d3-3a72-4b53-be94-219ab692853e)
-
+![화면 캡처 2025-01-07 164658](https://github.com/user-attachments/assets/106b5817-dbfe-4de9-92ec-bee51508d223) | ![화면 캡처 2025-01-07 165158](https://github.com/user-attachments/assets/ce281053-e3ab-486e-9d11-6dd0f51c0f76)
+---|---|
