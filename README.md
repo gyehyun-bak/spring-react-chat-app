@@ -65,5 +65,5 @@ IntelliJ와 같은 적당한 스프링 IDE를 통해 `server` 프로젝트를 �
 ![흐름도](https://github.com/user-attachments/assets/24b44838-1c4d-4b5e-99f3-4205918ab213)
 
 ## 실행 화면
-![화면 캡처 2025-01-07 164658](https://github.com/user-attachments/assets/106b5817-dbfe-4de9-92ec-bee51508d223) | ![spring chat 업데이트 2025-01-16](https://github.com/user-attachments/assets/dd4ed3f4-1f7a-4087-af7e-45650f8dcbb3)
+![화면 캡처 2025-01-16 125958](https://github.com/user-attachments/assets/0ef2c031-4410-4e33-91c3-6835663b5ffb) | ![spring chat 업데이트 2025-01-16](https://github.com/user-attachments/assets/dd4ed3f4-1f7a-4087-af7e-45650f8dcbb3)
 ---|---|
