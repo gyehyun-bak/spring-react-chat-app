@@ -1,23 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
-
-// 메시지 객체
-interface MessageRequestDto {
-  content: string;
-}
-
-interface MessageResponseDto {
-  content: string;
-  sessionId: string;
-  nickname: string;
-}
-
-// 서버 웹소켓 엔드포인트트
-const SOCKET_URL = "http://localhost:8080/ws";
-
-// 닉네임 최대 길이
-const MAX_NICKNAME_LENGTH = 30;
+import { MessageRequestDto } from "./types/MessageRequestDto";
+import { MessageResponseDto } from "./types/MessageResponseDto";
+import { SOCKET_URL, MAX_NICKNAME_LENGTH } from "./config";
+import SystemMessageItem from "./components/SystemMessageItem";
+import ChatMessageItem from "./components/ChatMessageItem";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -145,21 +133,19 @@ function App() {
         {/* Body */}
         <div className="flex-1 overflow-auto p-4">
           <div className="flex flex-col gap-1">
-            {messages.map((message, index) => (
-              <div className={`flex flex-col gap-1 ${message.sessionId === sessionId ? "items-end" : "items-start"}`}>
-                <span className="text-sm text-neutral-400">{message.nickname}</span>
-                <div
+            {messages.map((message, index) => {
+              if (message.type === "SYSTEM") {
+                return <SystemMessageItem key={index} message={message} />;
+              }
+
+              return (
+                <ChatMessageItem
                   key={index}
-                  className={`px-4 py-3 my-1 rounded-xl w-fit shadow-md ${
-                    message.sessionId === sessionId
-                      ? "bg-blue-600 text-white self-end" // 자신의 메시지
-                      : "bg-white self-start" // 다른 사람의 메시지
-                  }`}
-                >
-                  {message.content}
-                </div>
-              </div>
-            ))}
+                  message={message}
+                  isMine={message.sessionId === sessionId}
+                />
+              );
+            })}
           </div>
         </div>
 
