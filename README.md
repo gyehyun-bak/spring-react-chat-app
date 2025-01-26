@@ -1,5 +1,3 @@
-# Spring Starter Pack - Chat App
-
 ## 💁‍♂️ 소개
 누구나 간단하게 Spring과 React를 통해 기본적인 채팅 서비스를 구축을 시작할 수 있도록 만든 템플릿 레포지토리 프로젝트입니다.
 
