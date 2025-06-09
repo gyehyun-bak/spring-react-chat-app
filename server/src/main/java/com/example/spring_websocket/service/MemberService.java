@@ -4,11 +4,14 @@ import com.example.spring_websocket.domain.ChatRoom;
 import com.example.spring_websocket.domain.Member;
 import com.example.spring_websocket.domain.MemberChatRoom;
 import com.example.spring_websocket.domain.Message;
+import com.example.spring_websocket.dto.response.JoinResponseDto;
 import com.example.spring_websocket.repository.ChatRoomRepository;
 import com.example.spring_websocket.repository.MessageRepository;
 import com.example.spring_websocket.repository.MemberChatRoomRepository;
 import com.example.spring_websocket.repository.MemberRepository;
+import com.example.spring_websocket.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,12 +26,17 @@ public class MemberService {
     private final ChatRoomRepository chatRoomRepository;
     private final MemberChatRoomRepository memberChatRoomRepository;
     private final MessageService messageService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Transactional
-    public void join(String nickname) {
+    public ResponseEntity<JoinResponseDto> join(String nickname) {
         Member member = Member.createMember(nickname);
 
-        memberRepository.save(member);
+        Member savedMember = memberRepository.save(member);
+
+        String accessToken = jwtTokenProvider.createToken(String.valueOf(savedMember.getId()));
+
+        return ResponseEntity.ok(new JoinResponseDto(accessToken));
     }
 
     @Transactional
