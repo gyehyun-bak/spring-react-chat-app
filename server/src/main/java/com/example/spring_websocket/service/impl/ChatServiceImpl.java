@@ -1,6 +1,6 @@
 package com.example.spring_websocket.service.impl;
 
-import com.example.spring_websocket.common.enums.MessageType;
+import com.example.spring_websocket.domain.enums.MessageType;
 import com.example.spring_websocket.dto.request.MessageRequestDto;
 import com.example.spring_websocket.dto.response.MessageResponseDto;
 import com.example.spring_websocket.service.ChatService;
@@ -12,7 +12,7 @@ public class ChatServiceImpl implements ChatService {
         return MessageResponseDto.builder()
                 .type(MessageType.CHAT)
                 .content(requestDto.getContent())
-                .sessionId(sessionId)
+                .memberId(0L)
                 .nickname(nickname)
                 .build();
     }

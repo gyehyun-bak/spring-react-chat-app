@@ -3,6 +3,9 @@ package com.example.spring_websocket.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Builder
@@ -15,12 +18,26 @@ public class ChatRoom {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User createdBy;
+    @JoinColumn(name = "created_by")
+    private Member createdBy;
 
-    public static ChatRoom createChatRoom(String name, User createdBy) {
-        return ChatRoom.builder()
+    @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<MemberChatRoom> memberChatRooms = new ArrayList<>();
+
+    public static ChatRoom createChatRoom(String name, Member createdBy) {
+        ChatRoom chatRoom = ChatRoom.builder()
                 .name(name)
                 .createdBy(createdBy)
                 .build();
+
+        MemberChatRoom.userJoinsChatRoom(createdBy, chatRoom);
+
+        return chatRoom;
+    }
+
+    public void addUserChatRoom(MemberChatRoom memberChatRoom) {
+        memberChatRooms.add(memberChatRoom);
+        memberChatRoom.setChatRoom(this);
     }
 }

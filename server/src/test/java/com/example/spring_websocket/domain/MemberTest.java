@@ -3,17 +3,17 @@ package com.example.spring_websocket.domain;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class UserTest {
+class MemberTest {
 
     @Test
-    void createUser() {
+    void createMember() {
         // given
         String nickname = "nickname";
 
         // when
-        User user = User.createUser(nickname);
+        Member member = Member.createMember(nickname);
 
         // then
-        Assertions.assertThat(user.getNickname()).isEqualTo(nickname);
+        Assertions.assertThat(member.getNickname()).isEqualTo(nickname);
     }
 }

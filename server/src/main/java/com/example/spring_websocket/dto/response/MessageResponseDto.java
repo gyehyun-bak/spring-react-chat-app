@@ -1,6 +1,7 @@
 package com.example.spring_websocket.dto.response;
 
-import com.example.spring_websocket.common.enums.MessageType;
+import com.example.spring_websocket.domain.Message;
+import com.example.spring_websocket.domain.enums.MessageType;
 import lombok.*;
 
 @AllArgsConstructor
@@ -11,6 +12,13 @@ import lombok.*;
 public class MessageResponseDto {
     private MessageType type;
     private String content;
-    private String sessionId;
+    private Long memberId;
     private String nickname;
+
+    public MessageResponseDto(Message message) {
+        this.type = message.getType();
+        this.content = message.getContent();
+        this.memberId = message.getMember().getId();
+        this.nickname = message.getMember().getNickname();
+    }
 }

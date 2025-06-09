@@ -10,13 +10,13 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class User {
+public class Member {
     @Id
     @GeneratedValue
     private Long id;
     private String nickname;
 
-    public static User createUser(String nickname) {
-        return User.builder().nickname(nickname).build();
+    public static Member createMember(String nickname) {
+        return Member.builder().nickname(nickname).build();
     }
 }

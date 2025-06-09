@@ -9,8 +9,8 @@ class ChatRoomTest {
     @Test
     void createChatRoom() {
         // given
-        String name = "name";
-        User host = User.createUser("host");
+        String name = "chatRoom";
+        Member host = Member.createMember("host");
 
         // when
         ChatRoom chatRoom = ChatRoom.createChatRoom(name, host);
@@ -18,5 +18,7 @@ class ChatRoomTest {
         // then
         assertThat(chatRoom.getName()).isEqualTo(name);
         assertThat(chatRoom.getCreatedBy()).isEqualTo(host);
+        assertThat(chatRoom.getMemberChatRooms().size()).isEqualTo(1);
+        assertThat(chatRoom.getMemberChatRooms().get(0).getMember()).isEqualTo(host);
     }
 }

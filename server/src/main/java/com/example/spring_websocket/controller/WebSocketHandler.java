@@ -1,13 +1,12 @@
 package com.example.spring_websocket.controller;
 
-import com.example.spring_websocket.common.enums.MessageType;
+import com.example.spring_websocket.domain.enums.MessageType;
 import com.example.spring_websocket.dto.response.MessageResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.messaging.simp.user.SimpUserRegistry;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
