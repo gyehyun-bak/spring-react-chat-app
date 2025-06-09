@@ -26,7 +26,7 @@ SpringBoot 백엔드 서버와 React(TypeScript) 클라이언트로 SockJS와 ST
 |  순서  | 블로그 포스트 | 추가 설명
 |--------|--------------|-----------|
 | 1 | [스프링 + 리액트 + 웹소켓 + STOMP로 간단한 채팅 구현하기](https://velog.io/@gyehyunbak/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%A6%AC%EC%95%A1%ED%8A%B8-%EC%9B%B9%EC%86%8C%EC%BC%93-STOMP%EB%A1%9C-%EA%B0%84%EB%8B%A8%ED%95%9C-%EC%B1%84%ED%8C%85-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0) | WebSocket과 SockJS 개념, 기본적인 프로젝트 세팅
-| 2 | [Spring과 React로 만든 채팅앱 템플릿 - Spring Starter Pack 오픈소스 프로젝트](https://velog.io/@gyehyunbak/Spring%EA%B3%BC-React%EB%A1%9C-%EB%A7%8C%EB%93%A0-%EC%B1%84%ED%8C%85%EC%95%B1-%ED%85%9C%ED%94%8C%EB%A6%BF-Spring-Starter-Pack-%EC%98%A4%ED%94%88%EC%86%8C%EC%8A%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8) | 내가 보낸 메시지 UI 구별 기능
+| 2 | [Session ID로 내가 보낸 메시지 오른쪽에 표시하기](https://velog.io/@gyehyunbak/Spring-React%EB%A1%9C-%EC%B1%84%ED%8C%85-%EA%B5%AC%ED%98%84-2https://velog.io/@gyehyunbak/Spring-React%EB%A1%9C-%EC%B1%84%ED%8C%85-%EA%B5%AC%ED%98%84-2) | 내가 보낸 메시지 UI 구별 기능
 
 ## 🏗 개발 환경 및 의존성
 ### 프론트엔드
