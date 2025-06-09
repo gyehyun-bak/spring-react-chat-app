@@ -21,8 +21,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @Transactional
@@ -63,7 +62,7 @@ class MessageServiceTest {
         Message savedMessage = captor.getValue();
         assertThat(savedMessage.getContent()).isEqualTo(content);
         assertThat(savedMessage.getType()).isEqualTo(MessageType.CHAT);
-        verify(simpMessagingTemplate).convertAndSend(any(), any(MessageResponseDto.class));
+        verify(simpMessagingTemplate, times(1)).convertAndSend(any(), any(MessageResponseDto.class));
     }
 
     @Test
@@ -86,6 +85,40 @@ class MessageServiceTest {
         Message savedMessage = captor.getValue();
         assertThat(savedMessage.getContent()).isEqualTo(content);
         assertThat(savedMessage.getType()).isEqualTo(MessageType.SYSTEM);
-        verify(simpMessagingTemplate).convertAndSend(any(), any(MessageResponseDto.class));
+        verify(simpMessagingTemplate, times(1)).convertAndSend(any(), any(MessageResponseDto.class));
+    }
+
+    @Test
+    void sendJoinedMessage() {
+        // given
+        Member member = Member.createMember("member");
+        ChatRoom chatRoom = ChatRoom.createChatRoom("chatRoom", member);
+
+        // when
+        messageService.sendJoinedMessage(member, chatRoom);
+
+        // then
+        ArgumentCaptor<Message> captor = ArgumentCaptor.forClass(Message.class);
+        verify(messageRepository).save(captor.capture());
+        Message savedMessage = captor.getValue();
+        assertThat(savedMessage.getType()).isEqualTo(MessageType.SYSTEM);
+        verify(simpMessagingTemplate, times(1)).convertAndSend(any(), any(MessageResponseDto.class));
+    }
+
+    @Test
+    void sendLeftMessage() {
+        // given
+        Member member = Member.createMember("member");
+        ChatRoom chatRoom = ChatRoom.createChatRoom("chatRoom", member);
+
+        // when
+        messageService.sendLeftMessage(member, chatRoom);
+
+        // then
+        ArgumentCaptor<Message> captor = ArgumentCaptor.forClass(Message.class);
+        verify(messageRepository).save(captor.capture());
+        Message savedMessage = captor.getValue();
+        assertThat(savedMessage.getType()).isEqualTo(MessageType.SYSTEM);
+        verify(simpMessagingTemplate, times(1)).convertAndSend(any(), any(MessageResponseDto.class));
     }
 }

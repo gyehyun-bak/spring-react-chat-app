@@ -13,6 +13,7 @@ public class MemberChatRoom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -22,13 +23,11 @@ public class MemberChatRoom {
     @JoinColumn(name = "chat_room_id")
     private ChatRoom chatRoom;
 
-    public static MemberChatRoom userJoinsChatRoom(Member member, ChatRoom chatRoom) {
-        MemberChatRoom memberChatRoom = MemberChatRoom.builder()
-                .member(member)
-                .chatRoom(chatRoom)
-                .build();
+    public static MemberChatRoom memberJoinsChatRoom(Member member, ChatRoom chatRoom) {
+        MemberChatRoom memberChatRoom = new MemberChatRoom();
 
-        chatRoom.addUserChatRoom(memberChatRoom);
+        member.addMemberChatRoom(memberChatRoom);
+        chatRoom.addMemberChatRoom(memberChatRoom);
 
         return memberChatRoom;
     }

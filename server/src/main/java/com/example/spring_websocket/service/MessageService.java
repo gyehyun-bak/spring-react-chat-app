@@ -17,6 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class MessageService {
 
+    public static final String CHAT_DESTINATION_PREFIX = "/topic/chat/";
+    public static final String HAS_JOINED = "님이 참가하였습니다.";
+    public static final String HAS_LEFT = "님이 나갔습니다.";
+
     private final MemberRepository memberRepository;
     private final ChatRoomRepository chatRoomRepository;
     private final MessageRepository messageRepository;
@@ -30,8 +34,7 @@ public class MessageService {
 
         Message chatMessage = Message.createChatMessage(member, chatRoom, content);
 
-        publishMessage(chatMessage);
-        messageRepository.save(chatMessage);
+        publish(chatMessage);
     }
 
     @Transactional
@@ -39,13 +42,26 @@ public class MessageService {
         Member member = memberRepository.findById(memberId).orElseThrow();
         ChatRoom chatRoom = chatRoomRepository.findById(chatRoomId).orElseThrow();
 
-        Message chatMessage = Message.createSystemMessage(member, chatRoom, content);
+        Message systemMessage = Message.createSystemMessage(member, chatRoom, content);
 
-        publishMessage(chatMessage);
-        messageRepository.save(chatMessage);
+        publish(systemMessage);
     }
 
-    private void publishMessage(Message message) {
-        simpMessagingTemplate.convertAndSend("/topic/chat" + message.getChatRoom().getId(), new MessageResponseDto(message));
+    @Transactional
+    public void publish(Message message) {
+        simpMessagingTemplate.convertAndSend(CHAT_DESTINATION_PREFIX + message.getChatRoom().getId(), new MessageResponseDto(message));
+        messageRepository.save(message);
+    }
+
+    @Transactional
+    public void sendJoinedMessage(Member member, ChatRoom chatRoom) {
+        Message joinMessage = Message.createSystemMessage(member, chatRoom, member.getNickname() + HAS_JOINED);
+        publish(joinMessage);
+    }
+
+    @Transactional
+    public void sendLeftMessage(Member member, ChatRoom chatRoom) {
+        Message leftMessage = Message.createSystemMessage(member, chatRoom, member.getNickname() + HAS_LEFT);
+        publish(leftMessage);
     }
 }

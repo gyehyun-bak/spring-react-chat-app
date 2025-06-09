@@ -1,7 +1,9 @@
 package com.example.spring_websocket.service;
 
+import com.example.spring_websocket.domain.ChatRoom;
 import com.example.spring_websocket.domain.Member;
 import com.example.spring_websocket.domain.MemberChatRoom;
+import com.example.spring_websocket.domain.Message;
 import com.example.spring_websocket.repository.ChatRoomRepository;
 import com.example.spring_websocket.repository.MessageRepository;
 import com.example.spring_websocket.repository.MemberChatRoomRepository;
@@ -20,12 +22,11 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final ChatRoomRepository chatRoomRepository;
     private final MemberChatRoomRepository memberChatRoomRepository;
+    private final MessageService messageService;
 
     @Transactional
     public void join(String nickname) {
         Member member = Member.createMember(nickname);
-
-        // TODO: 참가 메시지 전송
 
         memberRepository.save(member);
     }
@@ -34,10 +35,13 @@ public class MemberService {
     public void leave(Long userId) {
         Member member = memberRepository.findById(userId).orElseThrow();
 
+        member.getMemberChatRooms().forEach(memberChatRoom -> {
+            ChatRoom chatRoom = memberChatRoom.getChatRoom();
+            messageService.sendLeftMessage(member, chatRoom);
+        });
+
         memberChatRoomRepository.deleteAllByMember(member);
         chatRoomRepository.deleteAllEmptyChatRooms();
-
-        // TODO: 나가기 메시지 전송
 
         memberRepository.delete(member);
     }

@@ -31,12 +31,12 @@ public class ChatRoom {
                 .createdBy(createdBy)
                 .build();
 
-        MemberChatRoom.userJoinsChatRoom(createdBy, chatRoom);
+        MemberChatRoom.memberJoinsChatRoom(createdBy, chatRoom);
 
         return chatRoom;
     }
 
-    public void addUserChatRoom(MemberChatRoom memberChatRoom) {
+    public void addMemberChatRoom(MemberChatRoom memberChatRoom) {
         memberChatRooms.add(memberChatRoom);
         memberChatRoom.setChatRoom(this);
     }

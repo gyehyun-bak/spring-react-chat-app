@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class MemberChatRoomTest {
 
     @Test
-    void userJoinsChatRoom() {
+    void memberJoinsChatRoom() {
         // given
         Member host = Member.createMember("member");
         ChatRoom chatRoom = ChatRoom.createChatRoom("chatRoom", host);
@@ -15,7 +15,7 @@ class MemberChatRoomTest {
         Member guest = Member.createMember("guest");
 
         // when
-        MemberChatRoom memberChatRoom = MemberChatRoom.userJoinsChatRoom(guest, chatRoom);
+        MemberChatRoom memberChatRoom = MemberChatRoom.memberJoinsChatRoom(guest, chatRoom);
 
         // then
         assertThat(memberChatRoom.getMember()).isEqualTo(guest);
