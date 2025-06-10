@@ -26,20 +26,20 @@ public class ChatRoomController {
 
     @PostMapping
     public ResponseEntity<ChatRoomResponseDto> createChatRoom(@RequestBody ChatRoomCreateRequestDto requestDto) {
-        Long memberId = Long.parseLong(jwtTokenProvider.getMemberIdFromToken(requestDto.getAccessToken()));
+        Long memberId = jwtTokenProvider.getMemberIdFromToken(requestDto.getAccessToken());
         return chatRoomService.createChatRoom(memberId, requestDto.getName());
     }
 
     @PostMapping("/{chatRoomId}/join")
     public ResponseEntity<?> joinChatRoom(@RequestBody ChatRoomJoinRequestDto requestDto, @PathVariable Long chatRoomId) {
-        long memberId = Long.parseLong(jwtTokenProvider.getMemberIdFromToken(requestDto.getAccessToken()));
+        long memberId = jwtTokenProvider.getMemberIdFromToken(requestDto.getAccessToken());
         chatRoomService.join(memberId, chatRoomId);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{chatRoomId}/leave")
     public ResponseEntity<?> leaveChatRoom(@RequestBody ChatRoomLeaveRequestDto requestDto, @PathVariable Long chatRoomId) {
-        long memberId = Long.parseLong(jwtTokenProvider.getMemberIdFromToken(requestDto.getAccessToken()));
+        long memberId = jwtTokenProvider.getMemberIdFromToken(requestDto.getAccessToken());
         chatRoomService.leave(memberId, chatRoomId);
         return ResponseEntity.ok().build();
     }

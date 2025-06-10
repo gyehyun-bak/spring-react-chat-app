@@ -5,6 +5,7 @@ import com.example.spring_websocket.dto.response.MessageResponseDto;
 import com.example.spring_websocket.service.ChatService;
 import com.example.spring_websocket.service.MessageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
@@ -24,12 +25,12 @@ public class MessageController {
     }
 
     @MessageMapping("/chat-rooms/{chatRoomId}")
-    public void sendChatMessage(MessageRequestDto requestDto, SimpMessageHeaderAccessor accessor, Long chatRoomId) {
+    public void sendChatMessage(MessageRequestDto requestDto, SimpMessageHeaderAccessor accessor, @DestinationVariable Long chatRoomId) {
         if (accessor.getSessionAttributes() == null || !accessor.getSessionAttributes().containsKey("memberId")) {
             throw new IllegalStateException("No SessionAttributes or memberId. sessionId: " + accessor.getSessionId());
         }
 
-        Long memberId = Long.parseLong((String) accessor.getSessionAttributes().get("memberId"));
+        Long memberId = (Long) accessor.getSessionAttributes().get("memberId");
 
         messageService.sendChatMessage(memberId, chatRoomId, requestDto.getContent());
     }

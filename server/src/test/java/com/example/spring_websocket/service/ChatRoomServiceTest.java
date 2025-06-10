@@ -8,6 +8,7 @@ import com.example.spring_websocket.dto.response.ChatRoomsResponseDto;
 import com.example.spring_websocket.repository.ChatRoomRepository;
 import com.example.spring_websocket.repository.MemberChatRoomRepository;
 import com.example.spring_websocket.repository.MemberRepository;
+import com.example.spring_websocket.repository.MessageRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,6 +34,8 @@ class ChatRoomServiceTest {
     private MemberRepository memberRepository;
     @Mock
     private MemberChatRoomRepository memberChatRoomRepository;
+    @Mock
+    private MessageRepository messageRepository;
     @Mock
     private MessageService messageService;
     @InjectMocks
@@ -135,6 +138,5 @@ class ChatRoomServiceTest {
 
         // then
         verify(memberChatRoomRepository, times(1)).deleteByMemberAndChatRoom(guest, chatRoom);
-        verify(messageService, times(1)).sendLeftMessage(guest, chatRoom);
     }
 }

@@ -4,6 +4,7 @@ import com.example.spring_websocket.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
@@ -20,14 +21,18 @@ public class WebSocketHandler {
      */
     @EventListener
     public void handleSessionDisconnect(SessionDisconnectEvent event) {
-        SimpMessageHeaderAccessor accessor = SimpMessageHeaderAccessor.wrap(event.getMessage());
+        Long memberId = getMemberIdFromMessage(event.getMessage());
+
+        memberService.leave(memberId);
+    }
+
+    private Long getMemberIdFromMessage(Message<byte[]> event) {
+        SimpMessageHeaderAccessor accessor = SimpMessageHeaderAccessor.wrap(event);
 
         if (accessor.getSessionAttributes() == null || !accessor.getSessionAttributes().containsKey("memberId")) {
             throw new IllegalStateException("No SessionAttributes or memberId. sessionId: " + accessor.getSessionId());
         }
 
-        Long memberId = Long.parseLong((String) accessor.getSessionAttributes().get("memberId"));
-
-        memberService.leave(memberId);
+        return (Long) accessor.getSessionAttributes().get("memberId");
     }
 }

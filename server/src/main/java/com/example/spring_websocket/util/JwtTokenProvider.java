@@ -28,8 +28,8 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String getMemberIdFromToken(String token) {
-        return parseClaims(token).getBody().getSubject();
+    public Long getMemberIdFromToken(String token) {
+        return Long.parseLong(parseClaims(token).getBody().getSubject());
     }
 
     public boolean validateToken(String token) {
