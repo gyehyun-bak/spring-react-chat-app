@@ -13,4 +13,8 @@ public interface MemberChatRoomRepository extends JpaRepository<MemberChatRoom, 
     void deleteAllByMember(Member member);
 
     void deleteByMemberAndChatRoom(Member member, ChatRoom chatRoom);
+
+    boolean existsMemberChatRoomByMemberAndChatRoom(Member member, ChatRoom chatRoom);
+
+    long countMemberChatRoomByChatRoom(ChatRoom chatRoom);
 }

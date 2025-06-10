@@ -99,6 +99,26 @@ class ChatRoomServiceTest {
     }
 
     @Test
+    void joinChatRoomIgnoreIfAlreadyJoined() {
+        // given
+        ChatRoom chatRoom = ChatRoom.createChatRoom("chatRoom", Member.createMember("member"));
+        long chatRoomId = 1L;
+
+        Member guest = Member.createMember("guest");
+        long guestId = 2L;
+
+        when(memberRepository.findById(guestId)).thenReturn(Optional.of(guest));
+        when(chatRoomRepository.findById(chatRoomId)).thenReturn(Optional.of(chatRoom));
+        when(memberChatRoomRepository.existsMemberChatRoomByMemberAndChatRoom(guest, chatRoom)).thenReturn(true);
+
+        // when
+        chatRoomService.join(guestId, chatRoomId);
+
+        // then
+        verify(memberChatRoomRepository, never()).save(any(MemberChatRoom.class));
+    }
+
+    @Test
     void leaveChatRoom() {
         // given
         ChatRoom chatRoom = ChatRoom.createChatRoom("chatRoom", Member.createMember("member"));

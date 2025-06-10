@@ -8,6 +8,7 @@ import com.example.spring_websocket.dto.response.ChatRoomsResponseDto;
 import com.example.spring_websocket.repository.ChatRoomRepository;
 import com.example.spring_websocket.repository.MemberChatRoomRepository;
 import com.example.spring_websocket.repository.MemberRepository;
+import com.example.spring_websocket.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class ChatRoomService {
     private final MemberRepository memberRepository;
     private final MemberChatRoomRepository memberChatRoomRepository;
     private final MessageService messageService;
-
+    private final MessageRepository messageRepository;
 
     @Transactional
     public ResponseEntity<ChatRoomResponseDto> createChatRoom(Long memberId, String name) {
@@ -43,6 +44,10 @@ public class ChatRoomService {
         Member member = memberRepository.findById(memberId).orElseThrow();
         ChatRoom chatRoom = chatRoomRepository.findById(chatRoomId).orElseThrow();
 
+        if (memberChatRoomRepository.existsMemberChatRoomByMemberAndChatRoom(member, chatRoom)) {
+            return;
+        }
+
         MemberChatRoom memberChatRoom = MemberChatRoom.memberJoinsChatRoom(member, chatRoom);
 
         messageService.sendJoinedMessage(member, chatRoom);
@@ -55,9 +60,18 @@ public class ChatRoomService {
         Member member = memberRepository.findById(memberId).orElseThrow();
         ChatRoom chatRoom = chatRoomRepository.findById(chatRoomId).orElseThrow();
 
-        messageService.sendLeftMessage(member, chatRoom);
-
         memberChatRoomRepository.deleteByMemberAndChatRoom(member, chatRoom);
-        chatRoomRepository.deleteAllEmptyChatRooms();
+        if (deleteChatRoomIfEmpty(chatRoom)) return;
+
+        messageService.sendLeftMessage(member, chatRoom);
+    }
+
+    private boolean deleteChatRoomIfEmpty(ChatRoom chatRoom) {
+        if (memberChatRoomRepository.countMemberChatRoomByChatRoom(chatRoom) == 0L) {
+            messageRepository.deleteByChatRoom(chatRoom);
+            chatRoomRepository.delete(chatRoom);
+            return true;
+        }
+        return false;
     }
 }

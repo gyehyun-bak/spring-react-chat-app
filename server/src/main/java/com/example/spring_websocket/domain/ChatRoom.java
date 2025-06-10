@@ -25,6 +25,10 @@ public class ChatRoom {
     @Builder.Default
     private List<MemberChatRoom> memberChatRooms = new ArrayList<>();
 
+    @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Message> messages = new ArrayList<>();
+
     public static ChatRoom createChatRoom(String name, Member createdBy) {
         ChatRoom chatRoom = ChatRoom.builder()
                 .name(name)
