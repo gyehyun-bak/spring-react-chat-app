@@ -1,4 +1,4 @@
-package com.example.spring_websocket.common.enums;
+package com.example.spring_websocket.domain.enums;
 
 import org.springframework.web.socket.messaging.SessionConnectEvent;
 
