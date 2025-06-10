@@ -1,6 +1,7 @@
 package com.example.spring_websocket.controller;
 
 import com.example.spring_websocket.dto.request.ChatRoomCreateRequestDto;
+import com.example.spring_websocket.dto.request.ChatRoomJoinRequestDto;
 import com.example.spring_websocket.dto.request.ChatRoomLeaveRequestDto;
 import com.example.spring_websocket.dto.response.ChatRoomResponseDto;
 import com.example.spring_websocket.dto.response.ChatRoomsResponseDto;
@@ -27,6 +28,13 @@ public class ChatRoomController {
     public ResponseEntity<ChatRoomResponseDto> createChatRoom(@RequestBody ChatRoomCreateRequestDto requestDto) {
         Long memberId = Long.parseLong(jwtTokenProvider.getMemberIdFromToken(requestDto.getAccessToken()));
         return chatRoomService.createChatRoom(memberId, requestDto.getName());
+    }
+
+    @PostMapping("/{chatRoomId}/join")
+    public ResponseEntity<?> joinChatRoom(@RequestBody ChatRoomJoinRequestDto requestDto, @PathVariable Long chatRoomId) {
+        long memberId = Long.parseLong(jwtTokenProvider.getMemberIdFromToken(requestDto.getAccessToken()));
+        chatRoomService.join(memberId, chatRoomId);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{chatRoomId}/leave")

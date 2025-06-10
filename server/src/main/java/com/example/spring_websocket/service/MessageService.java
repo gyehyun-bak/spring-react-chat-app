@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class MessageService {
 
-    public static final String CHAT_DESTINATION_PREFIX = "/topic/chat/";
+    public static final String CHAT_DESTINATION_PREFIX = "/topic/chat-rooms/";
     public static final String HAS_JOINED = "님이 참가하였습니다.";
     public static final String HAS_LEFT = "님이 나갔습니다.";
 

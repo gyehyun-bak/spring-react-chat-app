@@ -1,4 +1,4 @@
-package com.example.spring_websocket.controller;
+package com.example.spring_websocket.websocket;
 
 import com.example.spring_websocket.domain.enums.MessageType;
 import com.example.spring_websocket.dto.response.MessageResponseDto;
