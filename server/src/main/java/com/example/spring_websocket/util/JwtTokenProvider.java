@@ -28,7 +28,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String getUserIdFromToken(String token) {
+    public String getMemberIdFromToken(String token) {
         return parseClaims(token).getBody().getSubject();
     }
 

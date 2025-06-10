@@ -26,7 +26,6 @@ public class MessageService {
     private final MessageRepository messageRepository;
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-
     @Transactional
     public void sendChatMessage(Long memberId, Long chatRoomId, String content) {
         Member member = memberRepository.findById(memberId).orElseThrow();
