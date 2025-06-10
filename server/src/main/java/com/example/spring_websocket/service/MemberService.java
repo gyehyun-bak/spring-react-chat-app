@@ -3,6 +3,7 @@ package com.example.spring_websocket.service;
 import com.example.spring_websocket.domain.ChatRoom;
 import com.example.spring_websocket.domain.Member;
 import com.example.spring_websocket.dto.response.JoinResponseDto;
+import com.example.spring_websocket.dto.response.MemberResponseDto;
 import com.example.spring_websocket.dto.response.MembersResponseDto;
 import com.example.spring_websocket.repository.ChatRoomRepository;
 import com.example.spring_websocket.repository.MemberChatRoomRepository;
@@ -54,7 +55,7 @@ public class MemberService {
         return ResponseEntity.ok(new MembersResponseDto(memberRepository.findAll()));
     }
 
-    public Member findById(Long memberId) {
-        return memberRepository.findById(memberId).orElseThrow();
+    public ResponseEntity<MemberResponseDto> findById(Long memberId) {
+        return ResponseEntity.ok(new MemberResponseDto(memberRepository.findById(memberId).orElseThrow()));
     }
 }

@@ -1,12 +1,30 @@
 import {MAX_NICKNAME_LENGTH} from "../config.ts";
 import {useState} from "react";
+import api from "../api/api.ts";
+import {useStore} from "../store/store.ts";
+import {useNavigate} from "react-router";
+import {JoinResponseDto} from "../api/dtos/response/JoinResponseDto.ts";
+import {JoinRequestDto} from "../api/dtos/request/JoinRequestDto.ts";
 
-export default function Home() {
+export default function Join() {
     const [nickname, setNickname] = useState(""); // 웹사이트 접속시 입력받을 세션 닉네임
+    const {setAccessToken, setMemberId} = useStore();
+    const navigate = useNavigate();
 
-    const enterNickname = () => {
+    const handleSubmit = async () => {
         if (!nickname.trim()) {
             setNickname("익명");
+        }
+
+        const request: JoinRequestDto = {nickname}
+
+        const response = await api.post<JoinResponseDto>("/members/join", request);
+
+        if (response.status === 200) {
+            setAccessToken(response.data.accessToken);
+            setMemberId(response.data.memberId);
+            localStorage.setItem("accessToken", response.data.accessToken);
+            navigate("/chat-rooms");
         }
     };
 
@@ -28,7 +46,7 @@ export default function Home() {
                     {nickname.length} / {MAX_NICKNAME_LENGTH}
                 </div>
                 <button
-                    onClick={enterNickname}
+                    onClick={handleSubmit}
                     className="bg-blue-600 text-white p-2 rounded-xl shadow-xl"
                 >
                     입장

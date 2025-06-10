@@ -1,9 +1,12 @@
 package com.example.spring_websocket.controller;
 
 import com.example.spring_websocket.dto.request.JoinRequestDto;
+import com.example.spring_websocket.dto.request.MemberMeRequestDto;
 import com.example.spring_websocket.dto.response.JoinResponseDto;
+import com.example.spring_websocket.dto.response.MemberResponseDto;
 import com.example.spring_websocket.dto.response.MembersResponseDto;
 import com.example.spring_websocket.service.MemberService;
+import com.example.spring_websocket.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/join")
     public ResponseEntity<JoinResponseDto> join(@RequestBody JoinRequestDto requestDto) {
@@ -23,5 +27,11 @@ public class MemberController {
     @GetMapping
     public ResponseEntity<MembersResponseDto> members() {
         return memberService.findAll();
+    }
+
+    @PostMapping("/me")
+    public ResponseEntity<MemberResponseDto> member(@RequestBody MemberMeRequestDto requestDto) {
+        Long memberId = jwtTokenProvider.getMemberIdFromToken(requestDto.getAccessToken());
+        return memberService.findById(memberId);
     }
 }
