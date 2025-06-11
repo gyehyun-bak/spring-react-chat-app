@@ -1,12 +1,9 @@
 package com.example.spring_websocket.message;
 
 import com.example.spring_websocket.message.dto.MessageRequestDto;
-import com.example.spring_websocket.message.dto.MessageResponseDto;
-import com.example.spring_websocket.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 
@@ -14,14 +11,7 @@ import org.springframework.stereotype.Controller;
 @RequiredArgsConstructor
 public class MessageController {
 
-    private final ChatService chatService;
     private final MessageService messageService;
-
-    @MessageMapping("/chat")
-    @SendTo("/topic/chat")
-    public MessageResponseDto sendChatMessage(MessageRequestDto requestDto, SimpMessageHeaderAccessor accessor) {
-        return chatService.processMessage(requestDto, accessor.getSessionId(), (String) accessor.getSessionAttributes().get("nickname"));
-    }
 
     @MessageMapping("/chat-rooms/{chatRoomId}")
     public void sendChatMessage(MessageRequestDto requestDto, SimpMessageHeaderAccessor accessor, @DestinationVariable Long chatRoomId) {

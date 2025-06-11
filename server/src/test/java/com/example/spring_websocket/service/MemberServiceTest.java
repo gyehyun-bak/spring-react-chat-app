@@ -7,6 +7,7 @@ import com.example.spring_websocket.chatroom.ChatRoomRepository;
 import com.example.spring_websocket.memberchatroom.MemberChatRoomRepository;
 import com.example.spring_websocket.member.MemberRepository;
 import com.example.spring_websocket.global.JwtTokenProvider;
+import com.example.spring_websocket.message.MessageService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,6 +35,8 @@ class MemberServiceTest {
     private MemberChatRoomRepository memberChatRoomRepository;
     @Mock
     private JwtTokenProvider jwtTokenProvider;
+    @Mock
+    private MessageService messageService;
 
     @InjectMocks
     private MemberService memberService;
@@ -43,7 +46,7 @@ class MemberServiceTest {
         // given
         String nickname = "nickname";
 
-        Member mockMember = Mockito.mock(Member.class);
+        Member mockMember = mock(Member.class);
         when(mockMember.getId()).thenReturn(1L);
         when(memberRepository.save(any(Member.class))).thenReturn(mockMember);
         when(jwtTokenProvider.createToken(any(String.class))).thenReturn("accessToken");
