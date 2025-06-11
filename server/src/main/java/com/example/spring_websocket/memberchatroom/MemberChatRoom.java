@@ -1,6 +1,7 @@
 package com.example.spring_websocket.memberchatroom;
 
 import com.example.spring_websocket.chatroom.ChatRoom;
+import com.example.spring_websocket.global.audit.BaseEntity;
 import com.example.spring_websocket.member.Member;
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,7 +11,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class MemberChatRoom {
+public class MemberChatRoom extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

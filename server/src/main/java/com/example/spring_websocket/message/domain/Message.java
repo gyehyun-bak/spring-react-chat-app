@@ -1,6 +1,7 @@
 package com.example.spring_websocket.message.domain;
 
 import com.example.spring_websocket.chatroom.ChatRoom;
+import com.example.spring_websocket.global.audit.BaseEntity;
 import com.example.spring_websocket.member.Member;
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class Message {
+public class Message extends BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
