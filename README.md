@@ -26,6 +26,7 @@ SpringBoot 백엔드 서버와 React(TypeScript) 클라이언트로 SockJS와 ST
 |--------|--------------|-----------|
 | 1 | [스프링 + 리액트 + 웹소켓 + STOMP로 간단한 채팅 구현하기](https://velog.io/@gyehyunbak/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%A6%AC%EC%95%A1%ED%8A%B8-%EC%9B%B9%EC%86%8C%EC%BC%93-STOMP%EB%A1%9C-%EA%B0%84%EB%8B%A8%ED%95%9C-%EC%B1%84%ED%8C%85-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0) | WebSocket과 SockJS 개념, 기본적인 프로젝트 세팅
 | 2 | [Session ID로 내가 보낸 메시지 오른쪽에 표시하기](https://velog.io/@gyehyunbak/Spring-React%EB%A1%9C-%EC%B1%84%ED%8C%85-%EA%B5%AC%ED%98%84-2https://velog.io/@gyehyunbak/Spring-React%EB%A1%9C-%EC%B1%84%ED%8C%85-%EA%B5%AC%ED%98%84-2) | 내가 보낸 메시지 UI 구별 기능
+| 3 | [Spring WebSocket 동작 과정](https://velog.io/@gyehyunbak/%EB%B9%A8%EB%9E%90%EC%A3%A0-Spring-WebSocket-%EB%8F%99%EC%9E%91-%EA%B3%BC%EC%A0%95) | Spring WebSocket이 제공하는 기능과 웹소켓 연결부터 메시지 송수신까지 흐름 정리
 
 ## 🏗 개발 환경 및 의존성
 ### 프론트엔드
