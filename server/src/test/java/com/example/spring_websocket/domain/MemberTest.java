@@ -1,5 +1,6 @@
 package com.example.spring_websocket.domain;
 
+import com.example.spring_websocket.member.Member;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
