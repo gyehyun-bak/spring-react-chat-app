@@ -1,5 +1,8 @@
 package com.example.spring_websocket.domain;
 
+import com.example.spring_websocket.chatroom.ChatRoom;
+import com.example.spring_websocket.member.Member;
+import com.example.spring_websocket.memberchatroom.MemberChatRoom;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

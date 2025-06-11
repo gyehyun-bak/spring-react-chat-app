@@ -1,13 +1,13 @@
 package com.example.spring_websocket.service;
 
-import com.example.spring_websocket.domain.Member;
-import com.example.spring_websocket.dto.response.JoinResponseDto;
-import com.example.spring_websocket.repository.ChatRoomRepository;
-import com.example.spring_websocket.repository.MemberChatRoomRepository;
-import com.example.spring_websocket.repository.MemberRepository;
-import com.example.spring_websocket.util.JwtTokenProvider;
+import com.example.spring_websocket.member.Member;
+import com.example.spring_websocket.member.MemberService;
+import com.example.spring_websocket.member.dto.response.JoinResponseDto;
+import com.example.spring_websocket.chatroom.ChatRoomRepository;
+import com.example.spring_websocket.memberchatroom.MemberChatRoomRepository;
+import com.example.spring_websocket.member.MemberRepository;
+import com.example.spring_websocket.global.JwtTokenProvider;
 import jakarta.transaction.Transactional;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,6 +1,6 @@
 package com.example.spring_websocket.websocket;
 
-import com.example.spring_websocket.service.MemberService;
+import com.example.spring_websocket.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;

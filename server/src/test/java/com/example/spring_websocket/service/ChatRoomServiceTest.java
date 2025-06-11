@@ -1,15 +1,16 @@
 package com.example.spring_websocket.service;
 
-import com.example.spring_websocket.domain.ChatRoom;
-import com.example.spring_websocket.domain.Member;
-import com.example.spring_websocket.domain.MemberChatRoom;
-import com.example.spring_websocket.dto.response.ChatRoomResponseDto;
-import com.example.spring_websocket.dto.response.ChatRoomsResponseDto;
-import com.example.spring_websocket.repository.ChatRoomRepository;
-import com.example.spring_websocket.repository.MemberChatRoomRepository;
-import com.example.spring_websocket.repository.MemberRepository;
-import com.example.spring_websocket.repository.MessageRepository;
-import org.assertj.core.api.Assertions;
+import com.example.spring_websocket.chatroom.ChatRoom;
+import com.example.spring_websocket.chatroom.ChatRoomService;
+import com.example.spring_websocket.member.Member;
+import com.example.spring_websocket.memberchatroom.MemberChatRoom;
+import com.example.spring_websocket.chatroom.dto.response.ChatRoomResponseDto;
+import com.example.spring_websocket.chatroom.dto.response.ChatRoomsResponseDto;
+import com.example.spring_websocket.chatroom.ChatRoomRepository;
+import com.example.spring_websocket.memberchatroom.MemberChatRoomRepository;
+import com.example.spring_websocket.member.MemberRepository;
+import com.example.spring_websocket.message.MessageRepository;
+import com.example.spring_websocket.message.MessageService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
