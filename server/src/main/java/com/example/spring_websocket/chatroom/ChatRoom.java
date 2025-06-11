@@ -21,8 +21,8 @@ public class ChatRoom extends BaseEntity {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by")
-    private Member createdBy;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL)
     @Builder.Default
@@ -31,7 +31,7 @@ public class ChatRoom extends BaseEntity {
     public static ChatRoom createChatRoom(String name, Member createdBy) {
         ChatRoom chatRoom = ChatRoom.builder()
                 .name(name)
-                .createdBy(createdBy)
+                .member(createdBy)
                 .build();
 
         MemberChatRoom.memberJoinsChatRoom(createdBy, chatRoom);

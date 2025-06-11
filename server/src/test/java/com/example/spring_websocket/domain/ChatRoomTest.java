@@ -19,7 +19,7 @@ class ChatRoomTest {
 
         // then
         assertThat(chatRoom.getName()).isEqualTo(name);
-        assertThat(chatRoom.getCreatedBy()).isEqualTo(host);
+        assertThat(chatRoom.getMember()).isEqualTo(host);
         assertThat(chatRoom.getMemberChatRooms().size()).isEqualTo(1);
         assertThat(chatRoom.getMemberChatRooms().get(0).getMember()).isEqualTo(host);
     }

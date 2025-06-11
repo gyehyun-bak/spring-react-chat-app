@@ -31,9 +31,6 @@ public class Message extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @CreatedDate
-    private LocalDateTime createdAt;
-
     public static Message createChatMessage(Member member, ChatRoom chatRoom, String content) {
         return Message.builder()
                 .content(content)
