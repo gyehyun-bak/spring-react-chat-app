@@ -16,5 +16,5 @@ export const useStore = create<StoreState>((set) => ({
     stompClient: null,
     setStompClient: (stompClient) => set({stompClient}),
     memberId: null,
-    setMemberId: (memberId) => set({memberId})
+    setMemberId: (memberId) => set({memberId}),
 }))
