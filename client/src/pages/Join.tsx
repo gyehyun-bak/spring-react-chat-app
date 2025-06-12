@@ -23,7 +23,6 @@ export default function Join() {
         if (response.status === 200) {
             setAccessToken(response.data.accessToken);
             setMemberId(response.data.memberId);
-            localStorage.setItem("accessToken", response.data.accessToken);
             navigate("/chat-rooms");
         }
     };

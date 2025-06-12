@@ -1,26 +1,35 @@
 import {useEffect} from "react";
 import {Outlet, useNavigate} from "react-router";
 import {useStore} from "./store/store.ts";
+import {useStomp} from "./hooks/useStomp.ts";
 
 function App() {
   const navigate = useNavigate();
-  const {accessToken, setAccessToken} = useStore();
+  const {accessToken, stompClient} = useStore();
+  const {connect} = useStomp();
   
   useEffect(() => {
-    const localAccessToken = localStorage.getItem("accessToken");
-    
-    if (!localAccessToken) {
+    if (!accessToken) {
       navigate("/join");
       return;
     }
-
-    if (!accessToken) {
-      setAccessToken(localAccessToken);
+    
+    if (stompClient && stompClient.connected) {
+      return;
     }
 
-    navigate("/chat-rooms");
+    connect({
+      accessToken: accessToken,
+      onConnect: () => {},
+      onError: () => {
+        navigate("/join");
+      },
+      onDisconnect: () => {
+        navigate("/join");
+      }
+    })
 
-  }, []);
+  }, [accessToken, navigate, stompClient?.connected]);
   
   return (
       <Outlet/>

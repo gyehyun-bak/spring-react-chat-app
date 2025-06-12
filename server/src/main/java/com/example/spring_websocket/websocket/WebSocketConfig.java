@@ -1,6 +1,8 @@
 package com.example.spring_websocket.websocket;
 
 import com.example.spring_websocket.global.JwtTokenProvider;
+import com.example.spring_websocket.member.MemberRepository;
+import com.example.spring_websocket.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.ChannelRegistration;
@@ -15,6 +17,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final MemberRepository memberRepository;
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
@@ -31,6 +34,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureClientInboundChannel(ChannelRegistration registration) {
-        registration.interceptors(new MyChannelInterceptor(jwtTokenProvider));
+        registration.interceptors(new MyChannelInterceptor(jwtTokenProvider, memberRepository));
     }
 }

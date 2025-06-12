@@ -1,9 +1,6 @@
 import {useStore} from "../store/store.ts";
 import {useNavigate} from "react-router";
 import {useEffect, useState} from "react";
-import SockJS from "sockjs-client";
-import {SOCKET_URL} from "../config.ts";
-import {Client} from "@stomp/stompjs";
 import api from "../api/api.ts";
 import {ChatRoomsResponseDto} from "../api/dtos/response/ChatRoomsResponseDto.ts";
 import {ChatRoomResponseDto} from "../api/dtos/response/ChatRoomResponseDto.ts";
@@ -11,36 +8,8 @@ import ChatRoomItem from "../components/ChatRoomItem.tsx";
 
 export default function ChatRooms() {
     const [chatRooms, setChatRooms] = useState<ChatRoomResponseDto[]>();
-    const {accessToken, setStompClient} = useStore()
+    const {accessToken} = useStore()
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!accessToken) {
-            navigate("/");
-            return;
-        }
-
-        const socket = new SockJS(SOCKET_URL);
-        const stompClient = new Client({
-            webSocketFactory: () => socket,
-            debug: (msg: string) => console.log("[STOMP]:", msg),
-            connectHeaders: {
-                accessToken: accessToken,
-            },
-            onStompError: (e) => {
-                console.error("[STOMP] 연결 실패: ", e);
-                stompClient.deactivate();
-            },
-            onDisconnect: () => console.log("STOMP 연결 해제"),
-            reconnectDelay: 5000,
-            heartbeatIncoming: 4000,
-            heartbeatOutgoing: 4000,
-        });
-
-        stompClient.activate();
-        setStompClient(stompClient);
-
-    }, [accessToken, navigate, setStompClient]);
 
     useEffect(() => {
         if (!accessToken) return;
