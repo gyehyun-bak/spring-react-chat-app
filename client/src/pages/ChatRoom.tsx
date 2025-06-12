@@ -48,7 +48,9 @@ export default function ChatRoom() {
         const subscription = stompClient.subscribe(`/topic/chat-rooms/${chatRoomId}`, callback);
 
         return () => {
-            subscription.unsubscribe();
+            subscription.unsubscribe({
+                destination: `/topic/chat-rooms/${chatRoomId}`,
+            });
         };
 
     }, [chatRoomId, joined, stompClient]);
